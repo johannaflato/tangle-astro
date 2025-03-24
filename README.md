@@ -1,13 +1,29 @@
-# Astro with Tailwind
+# tangle-ar.app
+## website for the Tangle AR App, built with astro, tailwind CSS, and mdx
 
-```sh
-npm create astro@latest -- --template with-tailwindcss
+## Pages
+
+- Features: Overview of Tangle AR capabilities and use cases
+- Sign Up: Create an account to start using Tangle AR
+- FAQ: Common questions and answers about the platform
+- Changelog: Latest updates and improvements
+
+## Development
+
+To run locally:
+
+```bash
+npm run dev
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+The site will be available at `http://localhost:4321`
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+## Deployment
 
-For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).
+This site is deployed on GitHub Pages. To deploy:
+
+1. Push changes to the main branch
+2. GitHub Actions will automatically build and deploy the site
+3. The site will be available at `https://tangle-website-astro.github.io/` (dev) and `https://tangle-ar.app/` (production)
+
+
