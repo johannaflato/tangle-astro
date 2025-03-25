@@ -1,0 +1,33 @@
+---
+import Article from './mdx/Article.astro';
+import Image from './mdx/Image.astro';
+
+interface HeadingProps {
+  children?: string;
+  id?: string;
+  class?: string;
+}
+
+// MDX component mapping
+export const components = {
+  img: Image,
+  h2: ({ children, ...props }: HeadingProps) => {
+    if (!children) return <h2 {...props}></h2>;
+    
+    const dateMatch = children.match(/{{ date: '([^']*)'.*}}/);
+    if (!dateMatch) return <h2 {...props}>{children}</h2>;
+
+    const title = children.replace(/{{ date: '[^']*' }}/, '').trim();
+    const id = title.toLowerCase().replace(/\s+/g, '-');
+
+    return (
+      <Article id={id} date={dateMatch[1]}>
+        <h2 {...props}>{title}</h2>
+        <slot />
+      </Article>
+    );
+  }
+};
+---
+
+<slot />

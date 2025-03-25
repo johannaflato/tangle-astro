@@ -1,0 +1,34 @@
+---
+import ArticleHeader from './ArticleHeader.astro';
+import ContentWrapper from './ContentWrapper.astro';
+
+interface Props {
+  id: string;
+  date: string | Date;
+}
+
+const { id, date } = Astro.props;
+---
+
+<article id={id} class="scroll-mt-16">
+  <div>
+    <ArticleHeader id={id} date={date} />
+    <ContentWrapper class="typography" data-mdx-content>
+      <slot />
+    </ContentWrapper>
+  </div>
+</article>
+
+<script>
+  const articles = document.querySelectorAll('article');
+  const observer = new ResizeObserver((entries) => {
+    entries.forEach(entry => {
+      const article = entry.target as HTMLElement;
+      const height = entry.contentRect.height;
+      const nextMultipleOf8 = 8 * Math.ceil(height / 8);
+      article.style.paddingBottom = `${nextMultipleOf8 - height}px`;
+    });
+  });
+
+  articles.forEach(article => observer.observe(article));
+</script>

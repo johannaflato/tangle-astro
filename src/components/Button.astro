@@ -1,19 +1,67 @@
 ---
-// Click button, get confetti!
-// Styled by Tailwind :)
+interface Props {
+	variant?: 'default' | 'submit';
+	href?: string;
+	type?: 'button' | 'submit';
+	arrow?: boolean;
+	class?: string;
+}
+
+const { 
+	variant = 'default',
+	href,
+	type = 'button',
+	arrow = false,
+	class: className,
+} = Astro.props;
+
+// Combine Tailwind classes based on variant
+const baseStyles = "group relative isolate rounded-md font-semibold";
+const variantStyles = {
+	default: "py-2 px-4 bg-purple-500 text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75",
+	submit: "flex-none py-1.5 text-[0.8125rem]/6 text-white px-2.5"
+};
+
+const combinedStyles = [
+	baseStyles,
+	variantStyles[variant],
+	arrow ? "pl-2.5 pr-[calc(9/16*1rem)]" : "",
+	className
+].filter(Boolean);
 ---
 
-<button
-	class="appearance-none py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75"
->
-	<slot />
-</button>
+{
+	href ? (
+		<a href={href} class:list={combinedStyles}>
+			{variant === 'submit' && (
+				<>
+					<span class="absolute inset-0 rounded-md bg-gradient-to-b from-white/80 to-white opacity-10 transition-opacity group-hover:opacity-15" />
+					<span class="absolute inset-0 rounded-md opacity-7.5 shadow-[inset_0_1px_1px_white] transition-opacity group-hover:opacity-10" />
+				</>
+			)}
+			<slot />
+			{arrow && <span aria-hidden="true">&rarr;</span>}
+		</a>
+	) : (
+		<button type={type} class:list={combinedStyles}>
+			{variant === 'submit' && (
+				<>
+					<span class="absolute inset-0 rounded-md bg-gradient-to-b from-white/80 to-white opacity-10 transition-opacity group-hover:opacity-15" />
+					<span class="absolute inset-0 rounded-md opacity-7.5 shadow-[inset_0_1px_1px_white] transition-opacity group-hover:opacity-10" />
+				</>
+			)}
+			<slot />
+			{arrow && <span aria-hidden="true">&rarr;</span>}
+		</button>
+	)
+}
 
-<script>
-	import confetti from 'canvas-confetti';
-	const button = document.body.querySelector('button');
-
-	if (button) {
-		button.addEventListener('click', () => confetti());
-	}
-</script>
+{variant === 'default' && 
+	<script>
+		import confetti from 'canvas-confetti';
+		const button = document.body.querySelector('button');
+		if (button) {
+			button.addEventListener('click', () => confetti());
+		}
+	</script>
+}

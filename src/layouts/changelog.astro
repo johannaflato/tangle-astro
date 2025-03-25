@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import FixedSidebar from '../components/FixedSidebar.astro';
+import Timeline from '../components/Timeline.astro';
+import Intro from '../components/Intro.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+// Get frontmatter from MDX if needed
+const { frontmatter } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{frontmatter.title}</title>
+	</head>
+
+	<body>
+    <FixedSidebar>
+      <Intro slot="main" />
+      <!-- <IntroFooter slot="footer" /> -->
+    </FixedSidebar>
+    
+    <ThemeToggle />
+    
+    <div class="relative flex-auto">
+      <Timeline />
+      <main class="space-y-20 py-20 sm:space-y-32 sm:py-32">
+        <slot /> <!-- This is where changelog.mdx content goes -->
+      </main>
+    </div>
+  </body>
+</html>
