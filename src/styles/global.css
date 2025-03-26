@@ -1,11 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-/* Alternatively, use Tailwind's directives */
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
 /* Theme variables */
 :root {
   --text-2xs: 0.6875rem;
@@ -142,4 +137,37 @@
       color: var(--typography-code);
     }
   }
+}
+
+/* Additional styles for article components */
+article {
+  position: relative;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.dark article {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Timeline styles */
+.timeline-line {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+}
+
+.dark .timeline-line {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0px,
+    rgba(255, 255, 255, 0.1) 2px,
+    transparent 2px,
+    transparent 8px
+  );
 }

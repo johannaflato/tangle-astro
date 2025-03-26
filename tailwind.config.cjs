@@ -2,6 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,svelte,ts,tsx,vue}"],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -22,10 +23,35 @@ module.exports = {
       borderColor: {
         default: "var(--color-border)",
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: theme('colors.gray.600'),
+            a: {
+              color: theme('colors.sky.500'),
+              '&:hover': {
+                color: theme('colors.sky.600')
+              }
+            }
+          }
+        },
+        invert: {
+          css: {
+            color: theme('colors.gray.300'),
+            a: {
+              color: theme('colors.sky.400'),
+              '&:hover': {
+                color: theme('colors.white')
+              }
+            }
+          }
+        }
+      })
     },
   },
   corePlugins: {
     fontSize: false,
   },
-  plugins: [require("tailwindcss-fluid-type")],
+  plugins: [require("tailwindcss-fluid-type"), require('@tailwindcss/typography')],
 };
