@@ -2,9 +2,21 @@
 import Image from './mdx/Image.astro';
 import type { MDXComponents } from 'mdx/types';
 
-// Export components for MDX - keeping it very simple
+// Export components for MDX - simple mapping
 export const components: MDXComponents = {
-  img: Image
+  img: Image,
+  // Basic HTML elements
+  a: 'a',
+  p: 'p',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  ul: 'ul',
+  ol: 'ol',
+  li: 'li',
+  blockquote: 'blockquote',
+  pre: 'pre',
+  code: 'code'
 };
 ---
 

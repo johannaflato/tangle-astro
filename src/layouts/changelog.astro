@@ -3,6 +3,7 @@ import '../styles/global.css';
 import FixedSidebar from '../components/FixedSidebar.astro';
 import Timeline from '../components/Timeline.astro';
 import Intro from '../components/Intro.astro';
+// import IntroFooter from '../components/IntroFooter.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import { components as mdxComponents } from '../components/mdx.astro';
 
@@ -30,124 +31,15 @@ const { frontmatter } = Astro.props;
     <div class="relative flex-auto">
       <Timeline />
       <main class="space-y-20 py-20 sm:space-y-32 sm:py-32">
-        <!-- Use both prose and typography classes for optimal styling -->
-        <div class="prose dark:prose-invert max-w-none typography">
-          <slot />
+        <!-- Fix width and positioning: use ContentWrapper concept -->
+        <div class="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
+          <div class="lg:ml-96 lg:flex lg:w-full lg:justify-end lg:pl-32">
+            <div class="prose prose-slate dark:prose-invert mx-auto max-w-lg lg:mx-0 lg:w-0 lg:max-w-xl lg:flex-auto typography">
+              <slot />
+            </div>
+          </div>
         </div>
       </main>
     </div>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Process headings with date information
-        const headings = document.querySelectorAll('h2');
-        headings.forEach(heading => {
-          const content = heading.textContent || '';
-          
-          // Extract date with a regex pattern
-          const dateMatch = content.match(/{{ *date: *['"]([^'"]*)['"](?: *\})? *}}/);
-          if (dateMatch) {
-            const dateStr = dateMatch[1];
-            const title = content.replace(/{{ *date: *['"][^'"]*['"](?:\})? *}}/, '').trim();
-            const id = title.toLowerCase()
-              .replace(/[^\w\s-]/g, '') // Remove special characters
-              .replace(/\s+/g, '-');    // Convert spaces to hyphens
-            
-            // Update the heading content to remove the date pattern
-            heading.textContent = title;
-            heading.classList.add('typography');
-            
-            // Create a wrapper article element
-            const article = document.createElement('article');
-            article.id = id;
-            article.classList.add('scroll-mt-16');
-            
-            // Create header div
-            const headerDiv = document.createElement('div');
-            
-            // Create article header
-            const articleHeader = document.createElement('div');
-            articleHeader.classList.add('mb-8', 'mt-2', 'flex', 'items-center', 'font-semibold');
-            
-            // Add date information
-            const dateDisplay = document.createElement('time');
-            dateDisplay.dateTime = dateStr;
-            const formattedDate = new Date(dateStr).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            });
-            dateDisplay.textContent = formattedDate;
-            dateDisplay.classList.add('text-sm', 'text-zinc-500', 'dark:text-zinc-400');
-            
-            // Add link
-            const permalinkContainer = document.createElement('div');
-            permalinkContainer.classList.add('ml-auto');
-            const permalink = document.createElement('a');
-            permalink.href = `#${id}`;
-            permalink.classList.add('text-sm', 'text-zinc-500', 'dark:text-zinc-400', 'hover:text-zinc-800', 'dark:hover:text-zinc-200');
-            permalink.textContent = 'Permalink';
-            permalinkContainer.appendChild(permalink);
-            
-            // Structure the header
-            articleHeader.appendChild(dateDisplay);
-            articleHeader.appendChild(permalinkContainer);
-            headerDiv.appendChild(articleHeader);
-            
-            // Create content wrapper
-            const contentWrapper = document.createElement('div');
-            contentWrapper.classList.add('typography');
-            contentWrapper.setAttribute('data-mdx-content', '');
-            
-            // Get current parent
-            const parent = heading.parentNode;
-            if (parent) {
-              // Insert article before heading
-              parent.insertBefore(article, heading);
-              
-              // Move heading and siblings until next heading into content wrapper
-              // First add the heading
-              contentWrapper.appendChild(heading);
-              
-              // Then get next sibling after the heading has been moved
-              while (parent.firstChild) {
-                const currentElement = parent.firstChild;
-                if (currentElement.nodeName === 'H2') {
-                  break;
-                }
-                contentWrapper.appendChild(currentElement);
-              }
-              
-              // Add everything to the article structure
-              headerDiv.appendChild(contentWrapper);
-              article.appendChild(headerDiv);
-            }
-          }
-        });
-        
-        // Fix any remaining [object Object] issues
-        const brokenLinks = document.querySelectorAll('a[href*="[object Object]"]');
-        brokenLinks.forEach(link => {
-          const article = link.closest('article');
-          if (article && article.id) {
-            (link as HTMLAnchorElement).href = `#${article.id}`;
-          }
-        });
-        
-        const objectTextElements = document.querySelectorAll('*');
-        objectTextElements.forEach(el => {
-          if (el.textContent?.includes('[object Object]')) {
-            const article = el.closest('article');
-            if (article && article.id) {
-              const cleanTitle = article.id
-                .split('-')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-              el.textContent = el.textContent.replace('[object Object]', cleanTitle);
-            }
-          }
-        });
-      });
-    </script>
   </body>
 </html>
