@@ -1,11 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
-// import { recmaPlugins } from './src/integrations/mdx/recma.mjs';
-// import { rehypePlugins } from './src/integrations/mdx/rehype.mjs';
-// import { remarkPlugins } from './src/integrations/mdx/remark.mjs';
+import tailwindcss from '@tailwindcss/vite';
+
+// Import MDX plugins
+import { recmaPlugins } from './src/integrations/mdx/recma.mjs';
+import { rehypePlugins } from './src/integrations/mdx/rehype.mjs';
+import { remarkPlugins } from './src/integrations/mdx/remark.mjs';
 
 export default defineConfig({
   site: 'https://johannaflato.github.io',
@@ -15,7 +17,14 @@ export default defineConfig({
   integrations: [
     mdx({
       syntaxHighlight: 'shiki',
-      shikiConfig: { theme: 'css-variables' }
+      shikiConfig: { 
+        theme: 'github-dark',
+        wrap: true
+      },
+      recmaPlugins,
+      rehypePlugins,
+      remarkPlugins,
+      gfm: true
     }),
     react()
   ]

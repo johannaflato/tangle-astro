@@ -1,38 +1,10 @@
 ---
-import Article from './mdx/Article.astro';
 import Image from './mdx/Image.astro';
+import type { MDXComponents } from 'mdx/types';
 
-interface MDXProps {
-  children: string | Array<any>;
-  [key: string]: any;
-}
-
-// MDX component mapping
-export const components = {
-  img: Image,
-  h2: async (props: MDXProps) => {
-    // Handle array of children (React/MDX often passes children as array)
-    const content = Array.isArray(props.children) 
-      ? props.children.join('')
-      : String(props.children || '');
-    
-    if (!content) return '';
-    
-    const dateMatch = content.match(/{{ date: '([^']*)'.*}}/);
-    if (!dateMatch) {
-      return `<h2>${content}</h2>`;
-    }
-
-    const title = content.replace(/{{ date: '[^']*' }}/, '').trim();
-    const id = title.toLowerCase().replace(/\s+/g, '-');
-
-    return `
-      <Article id="${id}" date="${dateMatch[1]}">
-        <h2>${title}</h2>
-        <slot />
-      </Article>
-    `;
-  }
+// Export components for MDX - keeping it very simple
+export const components: MDXComponents = {
+  img: Image
 };
 ---
 
