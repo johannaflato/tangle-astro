@@ -1,0 +1,173 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Theme variables */
+:root {
+  --text-2xs: 0.6875rem;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Light mode colors */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-900: #111827;
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+  --color-emerald-300: #6ee7b7;
+  --color-pink-300: #f9a8d4;
+  --color-violet-300: #c4b5fd;
+  --color-white: #ffffff;
+
+  /* Typography base variables */
+  --radius: 0.375rem;
+  --radius-lg: 0.5rem;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-xl: 1.25rem;
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+@layer components {
+  .typography {
+    --typography-body: var(--color-gray-600);
+    --typography-headings: var(--color-gray-900);
+    --typography-quotes: var(--color-gray-500);
+    --typography-quotes-border: var(--color-gray-200);
+    --typography-links: var(--color-sky-500);
+    --typography-link-hover: var(--color-sky-600);
+    --typography-link-underline: rgb(56 189 248 / 0.4);
+    --typography-link-hover-underline: rgb(2 132 199 / 0.4);
+    --typography-pre: var(--color-gray-300);
+    --typography-pre-shadow: var(--shadow-md);
+    --typography-bold: var(--color-gray-900);
+    --typography-code: var(--color-gray-900);
+    --typography-hr: rgb(17 24 39 / 0.05);
+    --typography-th-borders: rgb(17 24 39 / 0.2);
+    --typography-td-borders: rgb(17 24 39 / 0.05);
+
+    color: var(--typography-body);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+
+    /* Dark mode styles */
+    .dark & {
+      --typography-body: var(--color-gray-300);
+      --typography-headings: var(--color-white);
+      --typography-quotes: var(--color-gray-400);
+      --typography-quotes-border: var(--color-gray-800);
+      --typography-links: var(--color-sky-400);
+      --typography-link-hover: var(--color-white);
+      --typography-link-underline: rgb(56 189 248 / 0.4);
+      --typography-link-hover-underline: rgb(255 255 255 / 0.4);
+      --typography-pre: var(--color-gray-400);
+      --typography-pre-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+      --typography-bold: var(--color-white);
+      --typography-code: var(--color-white);
+      --typography-hr: rgb(255 255 255 / 0.1);
+      --typography-th-borders: rgb(255 255 255 / 0.1);
+      --typography-td-borders: rgb(255 255 255 / 0.05);
+    }
+
+    & h2 {
+      font-family: var(--font-display);
+      color: var(--typography-headings);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--text-xl);
+      line-height: 2rem;
+      margin-top: 2rem;
+    }
+
+    & h3 {
+      color: var(--typography-headings);
+      font-family: var(--font-display);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--text-base);
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    & a:not(h2 a) {
+      font-weight: var(--font-weight-semibold);
+      color: var(--typography-links);
+      text-decoration: underline;
+      text-decoration-color: var(--typography-link-underline);
+      text-underline-offset: 2px;
+      transition: color 0.15s, text-decoration-color 0.15s;
+
+      &:hover {
+        color: var(--typography-link-hover);
+        text-decoration-color: var(--typography-link-hover-underline);
+      }
+    }
+
+    & pre {
+      display: flex;
+      background-color: var(--color-gray-900);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--typography-pre-shadow);
+      margin-top: 2rem;
+    }
+
+    & pre code {
+      flex: none;
+      padding: 1.5rem;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: var(--typography-pre);
+    }
+
+    & code:not(pre code) {
+      font-family: var(--font-mono, ui-monospace);
+      font-size: 0.857em;
+      font-weight: var(--font-weight-bold);
+      color: var(--typography-code);
+    }
+  }
+}
+
+/* Additional styles for article components */
+article {
+  position: relative;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.dark article {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Timeline styles */
+.timeline-line {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+}
+
+.dark .timeline-line {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0px,
+    rgba(255, 255, 255, 0.1) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+}

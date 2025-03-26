@@ -1,0 +1,34 @@
+---
+import Logo from './Logo.astro';
+import IconLink from './IconLink.astro';
+import { BookIcon, GitHubIcon, FeedIcon } from './icons'; 
+import SignUpForm from './SignUpForm.astro';
+---
+
+<div>
+  <a href="/">
+    <Logo class="inline-block h-8 w-auto" />
+  </a>
+</div>
+<h1 class="mt-14 font-display text-4xl/tight font-light text-white">
+  Tangle AR App{' '}
+  <span class="text-sky-300">for spatial annotation</span>
+</h1>
+<p class="mt-4 text-sm/6 text-gray-300">
+  Tangle is a mobile iOS app for spatial annotation and poetic encounters. 
+  To discover the app, please visit the App Store.
+</p>
+<SignUpForm />
+<div class="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-3 sm:gap-x-2 lg:justify-start">
+  <IconLink href="#" icon={BookIcon} class="flex-none">
+    Documentation
+  </IconLink>
+  <IconLink href="https://github.com/your-repo" icon={GitHubIcon} class="flex-none">
+    GitHub
+  </IconLink>
+</div>
+
+<!-- IntroFooter content -->
+<p class="flex items-baseline gap-x-2 text-[0.8125rem]/6 text-gray-500">
+  © 2025 Entangled Reality LLC. All rights reserved.
+</p>

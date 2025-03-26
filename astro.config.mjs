@@ -2,7 +2,8 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
-import tailwindcss from '@tailwindcss/vite';
+import tailwind from '@astrojs/tailwind';
+import icon from 'astro-icon';
 
 // Import MDX plugins
 import { recmaPlugins } from './src/integrations/mdx/recma.mjs';
@@ -11,9 +12,6 @@ import { remarkPlugins } from './src/integrations/mdx/remark.mjs';
 
 export default defineConfig({
   site: 'https://johannaflato.github.io',
-  vite: {
-    plugins: [tailwindcss()]
-  },
   integrations: [
     mdx({
       syntaxHighlight: 'shiki',
@@ -26,6 +24,10 @@ export default defineConfig({
       remarkPlugins,
       gfm: true
     }),
-    react()
+    react(),
+    tailwind(),
+    icon({
+      iconDir: 'src/components/icons'
+    })
   ]
 });

@@ -1,34 +1,30 @@
 ---
-import Logo from './Logo.astro';
-import IconLink from './IconLink.astro';
-import { BookIcon, GitHubIcon, FeedIcon } from './icons'; 
-import SignUpForm from './SignUpForm.astro';
+import { Icon } from "astro-icon/components";
+import ContentSection from "~/components/content-section.astro";
 ---
 
-<div>
-  <a href="/">
-    <Logo class="inline-block h-8 w-auto" />
-  </a>
-</div>
-<h1 class="mt-14 font-display text-4xl/tight font-light text-white">
-  Tangle AR App{' '}
-  <span class="text-sky-300">for spatial annotation</span>
-</h1>
-<p class="mt-4 text-sm/6 text-gray-300">
-  Tangle is a mobile iOS app for spatial annotation and poetic encounters. 
-  To discover the app, please visit the App Store.
-</p>
-<SignUpForm />
-<div class="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-3 sm:gap-x-2 lg:justify-start">
-  <IconLink href="#" icon={BookIcon} class="flex-none">
-    Documentation
-  </IconLink>
-  <IconLink href="https://github.com/your-repo" icon={GitHubIcon} class="flex-none">
-    GitHub
-  </IconLink>
-</div>
-
-<!-- IntroFooter content -->
-<p class="flex items-baseline gap-x-2 text-[0.8125rem]/6 text-gray-500">
-  © 2025 Entangled Reality LLC. All rights reserved.
-</p>
+<ContentSection title="Just ship less" id="intro">
+  <Icon slot="eyebrow" name="logomark" class="size-32" />
+  <Fragment slot="lead">
+    Astro is a new kind of site builder for the
+    <span class="text-primary">modern</span> web.
+    <span class="text-primary">Lightning-fast</span>
+    performance meets <span class="text-primary">powerful</span> developer experience.
+  </Fragment>
+  <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+    <a
+      href="https://docs.astro.build/"
+      class="flex items-center justify-center gap-3 border-2 border-current px-6 py-4"
+    >
+      <Icon name="mdi:telescope" class="size-8" />
+      <span>Read the docs</span>
+    </a>
+    <a
+      href="https://astro.new/"
+      class="flex items-center justify-center gap-3 border-2 border-current px-6 py-4"
+    >
+      <Icon name="mdi:rocket" class="size-8" />
+      <span>Try it out</span>
+    </a>
+  </div>
+</ContentSection>
